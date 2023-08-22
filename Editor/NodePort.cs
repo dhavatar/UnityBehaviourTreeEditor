@@ -70,7 +70,7 @@ namespace TheKiwiCoder {
 
         public NodePort(Direction direction, Capacity capacity) : base(Orientation.Vertical, direction, capacity, typeof(bool)) {
             var connectorListener = new DefaultEdgeConnectorListener();
-            m_EdgeConnector = new EdgeConnector<Edge>(connectorListener);
+            m_EdgeConnector = new EdgeConnector<FlowingEdge>(connectorListener);
             this.AddManipulator(m_EdgeConnector);
             if (direction == Direction.Input) {
                 style.width = 100;

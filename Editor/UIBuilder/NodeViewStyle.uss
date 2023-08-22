@@ -119,14 +119,20 @@
 
 .running #node-state {
     background-color: rgb(255, 213, 0);
+    margin: -2.5px;
+    border-width: 5px;
 }
 
 .success #node-state {
     background-color: rgba(60, 212, 0, 0.54);
+    margin: -2.5px;
+    border-width: 5px;
 }
 
 .failure #node-state {
     background-color: rgba(250, 25, 25, 0.67);
+    margin: -2.5px;
+    border-width: 5px;
 }
 
 #title-label {

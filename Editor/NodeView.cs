@@ -133,6 +133,11 @@ namespace TheKiwiCoder {
             }
         }
 
+        public override Port InstantiatePort(Orientation orientation, Direction direction, Port.Capacity capacity, Type type)
+        {
+            return Port.Create<FlowingEdge>(orientation, direction, capacity, type);
+        }
+
         public void SortChildren() {
             if (node is CompositeNode composite) {
                 composite.children.Sort(SortByHorizontalPosition);
@@ -154,14 +159,59 @@ namespace TheKiwiCoder {
                     case Node.State.Running:
                         if (node.started) {
                             AddToClassList("running");
+                            if (input != null && input.connections != null)
+                            {
+                                input.portColor = Color.yellow;
+                                foreach (FlowingEdge edge in input.connections)
+                                {
+                                    edge.enableFlow = true;
+                                }
+                            }
+                            if (output != null) output.portColor = Color.yellow;
                         }
                         break;
                     case Node.State.Failure:
                         AddToClassList("failure");
+                        if (input != null && input.connections != null)
+                        {
+                            input.portColor = Color.white;
+                            foreach (FlowingEdge edge in input.connections)
+                            {
+                                edge.enableFlow = false;
+                            }
+                        }
+                        if (output != null) output.portColor = Color.white;
                         break;
                     case Node.State.Success:
                         AddToClassList("success");
+                        if (input != null && input.connections != null)
+                        {
+                            input.portColor = Color.yellow;
+                            foreach (FlowingEdge edge in input.connections)
+                            {
+                                edge.enableFlow = true;
+                            }
+                        }
+                        if (output != null) output.portColor = Color.yellow;
                         break;
+                }
+            }
+        }
+
+        public void UpdateConnections()
+        {
+            if (Application.isPlaying)
+            {
+                if (output != null && output.connections != null)
+                {
+                    foreach (Edge edge in output.connections)
+                    {
+                        var flowEdge = edge as FlowingEdge;
+                        if (flowEdge == null)
+                            continue;
+
+                        flowEdge.UpdateEdgeControl();
+                    }
                 }
             }
         }

@@ -292,6 +292,14 @@ namespace TheKiwiCoder {
             }
         }
 
+        private void Update()
+        {
+            if (Application.isPlaying)
+            {
+                treeView?.UpdateNodeConnections();
+            }
+        }
+
         void OnToolbarNewAsset() {
             BehaviourTree tree = EditorUtility.CreateNewTree("New Behaviour Tree", settings.newTreePath);
             if (tree) {

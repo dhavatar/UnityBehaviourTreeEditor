@@ -312,7 +312,7 @@ namespace TheKiwiCoder {
         }
 
         void CreateEdgeView(NodeView parentView, NodeView childView) {
-            Edge edge = parentView.output.ConnectTo(childView.input);
+            var edge = parentView.output.ConnectTo<FlowingEdge>(childView.input);
             AddElement(edge);
         }
 
@@ -326,6 +326,14 @@ namespace TheKiwiCoder {
             nodes.ForEach(n => {
                 NodeView view = n as NodeView;
                 view.UpdateState();
+            });
+        }
+
+        public void UpdateNodeConnections()
+        {
+            nodes.ForEach(n => {
+                NodeView view = n as NodeView;
+                view.UpdateConnections();
             });
         }
 

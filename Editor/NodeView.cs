@@ -155,46 +155,35 @@ namespace TheKiwiCoder {
             RemoveFromClassList("success");
 
             if (Application.isPlaying) {
+                var newColor = Color.white;
+                bool enableFlow = false;
                 switch (node.state) {
                     case Node.State.Running:
                         if (node.started) {
                             AddToClassList("running");
-                            if (input != null && input.connections != null)
-                            {
-                                input.portColor = Color.yellow;
-                                foreach (FlowingEdge edge in input.connections)
-                                {
-                                    edge.enableFlow = true;
-                                }
-                            }
-                            if (output != null) output.portColor = Color.yellow;
+                            newColor = Color.yellow;
+                            enableFlow = true;
                         }
                         break;
                     case Node.State.Failure:
                         AddToClassList("failure");
-                        if (input != null && input.connections != null)
-                        {
-                            input.portColor = Color.white;
-                            foreach (FlowingEdge edge in input.connections)
-                            {
-                                edge.enableFlow = false;
-                            }
-                        }
-                        if (output != null) output.portColor = Color.white;
                         break;
                     case Node.State.Success:
                         AddToClassList("success");
-                        if (input != null && input.connections != null)
-                        {
-                            input.portColor = Color.yellow;
-                            foreach (FlowingEdge edge in input.connections)
-                            {
-                                edge.enableFlow = true;
-                            }
-                        }
-                        if (output != null) output.portColor = Color.yellow;
+                        newColor = Color.yellow;
+                        enableFlow = true;
                         break;
                 }
+
+                if (input != null && input.connections != null)
+                {
+                    input.portColor = newColor;
+                    foreach (FlowingEdge edge in input.connections)
+                    {
+                        edge.enableFlow = enableFlow;
+                    }
+                }
+                if (output != null) output.portColor = newColor;
             }
         }
 
@@ -204,13 +193,9 @@ namespace TheKiwiCoder {
             {
                 if (output != null && output.connections != null)
                 {
-                    foreach (Edge edge in output.connections)
+                    foreach (FlowingEdge edge in output.connections)
                     {
-                        var flowEdge = edge as FlowingEdge;
-                        if (flowEdge == null)
-                            continue;
-
-                        flowEdge.UpdateEdgeControl();
+                        edge.UpdateEdgeControl();
                     }
                 }
             }

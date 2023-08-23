@@ -170,8 +170,6 @@ namespace TheKiwiCoder {
                         break;
                     case Node.State.Success:
                         AddToClassList("success");
-                        newColor = Color.yellow;
-                        enableFlow = true;
                         break;
                 }
 

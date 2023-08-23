@@ -294,6 +294,7 @@ namespace TheKiwiCoder {
 
         private void Update()
         {
+            // Using update for the edge connection animations in order to make it smoother
             if (Application.isPlaying)
             {
                 treeView?.UpdateNodeConnections();

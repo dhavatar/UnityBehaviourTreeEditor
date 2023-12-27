@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -37,6 +35,16 @@ namespace TheKiwiCoder {
             // Add whatever else you need here...
 
             return context;
+        }
+
+        /// <summary>
+        /// Works the same as GetComponentFromChildren in relation to the context game object.
+        /// </summary>
+        /// <typeparam name="T">The component to get from the game object.</typeparam>
+        /// <returns><see cref="T"/> component on the game object.</returns>
+        public T GetComponentFromContext<T>()
+        {
+            return gameObject.GetComponentInChildren<T>();
         }
     }
 }

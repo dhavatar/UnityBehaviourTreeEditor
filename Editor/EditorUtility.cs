@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEditor;
-using UnityEditor.UIElements;
-using UnityEditor.Search;
 using System.Linq;
 
 namespace TheKiwiCoder
@@ -22,7 +18,6 @@ namespace TheKiwiCoder
             public string name;
             public string version;
         }
-
 
         public static BehaviourTree CreateNewTree(string assetName, string folder) {
 
@@ -42,7 +37,6 @@ namespace TheKiwiCoder
         public static void CreateNewScript(ScriptTemplate scriptTemplate, NodeView source, bool isSourceParent, Vector2 position) {
             BehaviourTreeEditorWindow.Instance.newScriptDialog.CreateScript(scriptTemplate, source, isSourceParent, position);
         }
-
 
         public static List<T> LoadAssets<T>() where T : UnityEngine.Object {
             string[] assetIds = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
@@ -90,6 +84,5 @@ namespace TheKiwiCoder
         public static float RoundTo(float value, int nearestInteger) {
             return (Mathf.FloorToInt(value / nearestInteger)) * nearestInteger;
         }
-
     }
 }

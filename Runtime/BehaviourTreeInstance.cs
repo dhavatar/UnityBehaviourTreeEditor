@@ -13,6 +13,9 @@ namespace TheKiwiCoder {
         [Tooltip("Run behaviour tree validation at startup (Can be disabled for release)")] 
         public bool validate = true;
 
+        [Tooltip("The global blackboard this behaviour tree has access to.")]
+        [SerializeField] private BlackboardSO globalBlackboard;
+
         // These values override the keys in the blackboard
         public List<BlackboardKeyValuePair> blackboardOverrides = new List<BlackboardKeyValuePair>();
 
@@ -26,6 +29,7 @@ namespace TheKiwiCoder {
                 context = CreateBehaviourTreeContext();
                 behaviourTree = behaviourTree.Clone();
                 behaviourTree.Bind(context);
+                behaviourTree.globalBlackboard = globalBlackboard;
 
                 ApplyKeyOverrides();
             } else {
@@ -133,6 +137,9 @@ namespace TheKiwiCoder {
         }
 
         public BlackboardKey<T> FindBlackboardKey<T>(string keyName) {
+            if (globalBlackboard) {
+                return globalBlackboard.Blackboard.Find<T>(keyName);
+            }
             if (behaviourTree) {
                 return behaviourTree.blackboard.Find<T>(keyName);
             }
@@ -140,12 +147,18 @@ namespace TheKiwiCoder {
         }
 
         public void SetBlackboardValue<T>(string keyName, T value) {
-            if (behaviourTree) {
+            if (globalBlackboard) {
+                globalBlackboard.Blackboard.SetValue(keyName, value);
+            }
+            else if (behaviourTree) {
                 behaviourTree.blackboard.SetValue(keyName, value);
             }
         }
 
         public T GetBlackboardValue<T>(string keyName) {
+            if (globalBlackboard) {
+                return globalBlackboard.Blackboard.GetValue<T>(keyName);
+            }
             if (behaviourTree) {
                 return behaviourTree.blackboard.GetValue<T>(keyName);
             }

@@ -57,6 +57,5 @@ namespace TheKiwiCoder {
             }
             return false;
         }
-
     }
 }

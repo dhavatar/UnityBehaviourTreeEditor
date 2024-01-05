@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.UIElements;
-using UnityEngine;
 
 namespace TheKiwiCoder {
     public class BlackboardView : VisualElement {
@@ -43,10 +40,14 @@ namespace TheKiwiCoder {
                     continue;
                 }
                 newKeyTypeField.choices.Add(type);
-                if (newKeyTypeField.value == null) {
-                    newKeyTypeField.value = type;
-                }
             }
+
+            newKeyTypeField.choices.Sort((x, y) => x.Name.CompareTo(y.Name));
+            if (newKeyTypeField.value == null)
+            {
+                newKeyTypeField.value = newKeyTypeField.choices[0];
+            }
+
             popupContainer.Clear();
             popupContainer.Add(newKeyTypeField);
 

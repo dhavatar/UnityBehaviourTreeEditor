@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/Editor/UIBuilder/BehaviourTreeEditorStyle.uss?fileID=7433441132597879392&amp;guid=8781ca2a6e79ccf4da2e234c8c123d2f&amp;type=3#BehaviourTreeEditorStyle" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="KeyName" binding-path="name" class="unity-base-field__label" />
+        <ui:TextField picking-mode="Ignore" value="filler text" name="RenameField" binding-path="name" style="display: none;" />
+        <uie:PropertyField name="KeyValue" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>
